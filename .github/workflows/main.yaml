@@ -9,7 +9,7 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Decrypt large secret
-        run: ./decrypt_secret.sh
+        run: GPG_SECRET_PASSPHRASE=$GPG_SECRET_PASSPHRASE ./decrypt_secret.sh
         env:
           GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
       - name: makefile
