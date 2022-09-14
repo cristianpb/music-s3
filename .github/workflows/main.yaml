@@ -1,0 +1,17 @@
+name: Workflow
+
+on: push
+
+jobs:
+  my-job:
+    name: My Job
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Decrypt large secret
+        run: ./decrypt_secret.sh
+        env:
+          GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
+      - name: makefile
+        run: make main 
+
