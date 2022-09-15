@@ -2,6 +2,9 @@ SHELL := /bin/bash
 
 export PYTHONIOENCODING=utf-8
 
+encrypt:
+	gpg --symmetric --cipher-algo AES256 playlists.yaml
+
 tmpmusic:
 	@echo "Creating tmp folder"
 	mkdir -p tmpmusic
