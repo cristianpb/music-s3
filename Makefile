@@ -16,3 +16,8 @@ main: tmpmusic
 clean:
 	@echo "cleaning tmp music"
 	rm -rf tmpmusic
+
+rclone-install:
+	curl -s -O https://downloads.rclone.org/rclone-current-linux-amd64.deb;\
+		sudo dpkg -i rclone-current-linux-amd64.deb; \
+		rm rclone-*-linux-amd64*;

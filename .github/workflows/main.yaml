@@ -15,7 +15,7 @@ jobs:
       - name: makefile
         run: make main 
       - name: push
-        run: apt install rclone && rclone purge s3:bucket && rclone sync output/ s3:bucket/ --ignore-checksum --ignore-size --s3-upload-cutoff 0 --no-gzip-encoding
+        run: make rclone-install && rclone purge s3:bucket && rclone sync output/ s3:bucket/ --ignore-checksum --ignore-size --s3-upload-cutoff 0 --no-gzip-encoding
         env:
           RCLONE_CONFIG_S3_ACCESS_KEY_ID: ${{ secrets.RCLONE_CONFIG_S3_ACCESS_KEY_ID }}
           RCLONE_CONFIG_S3_ACL: ${{ secrets.RCLONE_CONFIG_S3_ACL }}
