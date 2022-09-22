@@ -14,4 +14,12 @@ jobs:
           GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
       - name: makefile
         run: make main 
-
+      - name: push
+        run: apt install rclone && rclone purge s3:bucket && rclone sync output/ s3:bucket/ --ignore-checksum --ignore-size --s3-upload-cutoff 0 --no-gzip-encoding
+        env:
+          RCLONE_CONFIG_S3_ACCESS_KEY_ID: ${{ secrets.RCLONE_CONFIG_S3_ACCESS_KEY_ID }}
+          RCLONE_CONFIG_S3_ACL: ${{ secrets.RCLONE_CONFIG_S3_ACL }}
+          RCLONE_CONFIG_S3_ENDPOINT: ${{ secrets.RCLONE_CONFIG_S3_ENDPOINT }}
+          RCLONE_CONFIG_S3_PROVIDER: ${{ secrets.RCLONE_CONFIG_S3_PROVIDER }}
+          RCLONE_CONFIG_S3_SECRET_ACCESS_KEY: ${{ secrets.RCLONE_CONFIG_S3_SECRET_ACCESS_KEY }}
+          RCLONE_CONFIG_S3_TYPE: ${{ secrets.RCLONE_CONFIG_S3_TYPE }}
