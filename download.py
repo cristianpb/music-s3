@@ -23,7 +23,7 @@ if not os.path.exists(os.path.join(DEST_FOLDER, 'music')):
 with open('playlists.yaml', 'r') as f:
     data = list(yaml.load_all(f, Loader=SafeLoader))
     category = data[0][sys.argv[1]]
-    for key, url in category.items():
+    for idx, (key, url) in enumerate(category.items()):
         print(f"{key} -> {url.strip()}")
         cmd="docker run --rm -v ${PWD}/tmpmusic:/music  spotdl/spotify-downloader download "f" {url.strip()} --m3u {key}.m3u8"
         process=subprocess.Popen(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
@@ -41,7 +41,7 @@ with open('playlists.yaml', 'r') as f:
         t = [f for f in glob.glob("tmpmusic/*.m3u8")]
         if len(t) > 0:
             # if m3u created by spotdl
-            with open(t[0],'r', encoding="utf-8") as fnr:
+            with open(t[idx],'r', encoding="utf-8") as fnr:
                 text = fnr.readlines()
 
             text = "".join(['../music/' + playlist_folder + '/' + line.strip() + '\n' for line in text])
