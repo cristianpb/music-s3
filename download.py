@@ -24,7 +24,6 @@ with open('playlists.yaml', 'r') as f:
     data = list(yaml.load_all(f, Loader=SafeLoader))
     category = data[0][sys.argv[1]]
     for idx, (key, url) in enumerate(category.items()):
-        print(f"{key} -> {url.strip()}")
         cmd="docker run --rm -v ${PWD}/tmpmusic:/music  spotdl/spotify-downloader download "f" {url.strip()} --m3u {key}.m3u8"
         process=subprocess.Popen(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
         output = process.stdout.read().decode('utf-8')
