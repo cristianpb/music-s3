@@ -2,8 +2,14 @@ SHELL := /bin/bash
 
 export PYTHONIOENCODING=utf-8
 
+dummy		    := $(shell touch .env)
+include ./.env
+
 encrypt:
-	gpg --symmetric --cipher-algo AES256 playlists.yaml
+	gpg --symmetric --quiet --batch --yes --cipher-algo AES256 --passphrase ${GPG_SECRET_PASSPHRASE} --quiet playlists.yaml
+
+decrypt:
+	./decrypt_secret.sh
 
 tmpmusic:
 	@echo "Creating tmp folder"
