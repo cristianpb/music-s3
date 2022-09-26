@@ -2,10 +2,10 @@ name: Workflow
 
 on:
   schedule:
-    - cron: '30 4 * * 1'
-    - cron: '30 4 * * 2'
-    - cron: '30 4 * * 3'
-    - cron: '30 4 * * 4'
+    - cron: '30 0 * * 1'
+    - cron: '30 0 * * 2'
+    - cron: '30 0 * * 3'
+    - cron: '30 0 * * 4'
 
 jobs:
   my-job:
@@ -18,16 +18,16 @@ jobs:
         env:
           GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
       - name: Monday
-        if: github.event.schedule == '30 4 * * 1'
+        if: github.event.schedule == '30 0 * * 1'
         run: make main 
       - name: Tuesday
-        if: github.event.schedule == '30 4 * * 2'
+        if: github.event.schedule == '30 0 * * 2'
         run: make radio 
       - name: Wednesday
-        if: github.event.schedule == '30 4 * * 3'
+        if: github.event.schedule == '30 0 * * 3'
         run: make this-is 
       - name: Thursday
-        if: github.event.schedule == '30 4 * * 4'
+        if: github.event.schedule == '30 0 * * 4'
         run: make wakeup
       - name: push
         run: make rclone-install && rclone purge s3:bucket && rclone sync output/ s3:bucket/ --ignore-checksum --ignore-size --s3-upload-cutoff 0 --no-gzip-encoding
