@@ -19,16 +19,24 @@ jobs:
           GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
       - name: Monday
         if: github.event.schedule == '30 0 * * 1'
-        run: make main 
+        run: make download 
+        env:
+          PLAYLIST: main
       - name: Tuesday
         if: github.event.schedule == '30 0 * * 2'
-        run: make radio 
+        run: make download 
+        env:
+          PLAYLIST: radio
       - name: Wednesday
         if: github.event.schedule == '30 0 * * 3'
-        run: make this-is 
+        run: make download 
+        env:
+          PLAYLIST: this-is
       - name: Thursday
         if: github.event.schedule == '30 0 * * 4'
-        run: make wakeup
+        run: make download 
+        env:
+          PLAYLIST: wakeup
       - name: push
         run: make rclone-install && rclone purge s3:bucket && rclone sync output/ s3:bucket/ --ignore-checksum --ignore-size --s3-upload-cutoff 0 --no-gzip-encoding
         env:

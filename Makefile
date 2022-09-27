@@ -15,9 +15,9 @@ tmpmusic:
 	@echo "Creating tmp folder"
 	mkdir -p tmpmusic
 
-main: tmpmusic
-	@echo "Download main playlist"
-	@PYTHONIOENCODING=utf-8 python3 download.py main
+download: tmpmusic
+	@echo "Download $(PLAYLIST) playlist"
+	@PYTHONIOENCODING=utf-8 python3 download.py $(PLAYLIST)
 
 clean:
 	@echo "cleaning tmp music"
