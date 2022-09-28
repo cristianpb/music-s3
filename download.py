@@ -37,10 +37,9 @@ with open('playlists.yaml', 'r') as f:
         for my_file in glob.glob(r'tmpmusic/*.mp3'):
             shutil.move(my_file, playlist_folder)
 
-        t = [f for f in glob.glob("tmpmusic/*.m3u8")]
-        if len(t) > 0:
+        if os.path.exists(os.path.join("tmpmusic", playlist_folder + ".m3u8")):
             # if m3u created by spotdl
-            with open(t[idx],'r', encoding="utf-8") as fnr:
+            with open(os.path.join("tmpmusic", playlist_folder + ".m3u8"),'r', encoding="utf-8") as fnr:
                 text = fnr.readlines()
 
             text = "".join(['../music/' + playlist_folder + '/' + line.strip() + '\n' for line in text])
