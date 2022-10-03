@@ -6,6 +6,12 @@ on:
     - cron: '30 23 * * 2'
     - cron: '30 23 * * 3'
     - cron: '30 23 * * 4'
+  workflow_dispatch:
+    inputs:
+      playlist:
+        description: 'Playlist name'
+        required: true
+        default: 'main'
 
 jobs:
   my-job:
@@ -17,6 +23,11 @@ jobs:
         run: ./decrypt_secret.sh
         env:
           GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
+      - name: Manual trigger
+        if: "${{ github.event.inputs.playlist != '' }}"
+        run: make download 
+        env:
+          PLAYLIST: ${{ github.event.inputs.playlist }}
       - name: Monday
         if: github.event.schedule == '30 23 * * 1'
         run: make download 
