@@ -2,16 +2,24 @@ name: Workflow
 
 on:
   schedule:
-    - cron: '30 23 * * 1'
-    - cron: '30 23 * * 2'
-    - cron: '30 23 * * 3'
-    - cron: '30 23 * * 4'
+    - cron: '30 00 * * 1'
+    - cron: '30 00 * * 2'
+    - cron: '30 00 * * 3'
+    - cron: '30 00 * * 4'
   workflow_dispatch:
     inputs:
       playlist:
         description: 'Playlist name'
-        required: true
-        default: 'main'
+        required: false
+        default: ''
+      url:
+        description: 'Url'
+        required: false
+        default: ''
+      url_name:
+        description: 'url name'
+        required: false
+        default: ''
 
 jobs:
   my-job:
@@ -23,10 +31,12 @@ jobs:
         run: ./decrypt_secret.sh
         env:
           GPG_SECRET_PASSPHRASE: ${{ secrets.GPG_SECRET_PASSPHRASE }}
-      - name: Manual trigger
-        if: "${{ github.event.inputs.playlist != '' }}"
+      - name: Manual trigger for single url
+        if: "${{ github.event.inputs.url != '' || github.event.inputs.url_name != '' || github.event.inputs.playlist != '' }}"
         run: make download 
         env:
+          URL: ${{ github.event.inputs.url }}
+          URL_NAME: ${{ github.event.inputs.url_name }}
           PLAYLIST: ${{ github.event.inputs.playlist }}
       - name: Monday
         if: github.event.schedule == '30 23 * * 1'

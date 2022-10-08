@@ -16,12 +16,18 @@ tmpmusic:
 	mkdir -p tmpmusic
 
 download: tmpmusic
-	@echo "Download $(PLAYLIST) playlist"
-	@PYTHONIOENCODING=utf-8 python3 download.py $(PLAYLIST)
+	@if [ ! -z "${PLAYLIST}" ];then\
+		echo "Download $(PLAYLIST) playlist";\
+		PYTHONIOENCODING=utf-8 python3 download.py -c $(PLAYLIST);\
+	fi;
+	@if [ ! -z "${URL_NAME}" -o ! -z "${URL}" ];then\
+		echo "Download $(URL_NAME) ($(URL))";\
+		PYTHONIOENCODING=utf-8 python3 download.py -u $(URL) -un $(URL_NAME);\
+	fi;
 
 clean:
 	@echo "cleaning tmp music"
-	rm -rf tmpmusic
+	rm -rf tmpmusic output
 
 rclone-install:
 	curl -s -O https://downloads.rclone.org/rclone-current-linux-amd64.deb;\
