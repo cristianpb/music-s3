@@ -39,22 +39,22 @@ jobs:
           URL_NAME: ${{ github.event.inputs.url_name }}
           PLAYLIST: ${{ github.event.inputs.playlist }}
       - name: Monday
-        if: github.event.schedule == '30 23 * * 1'
+        if: github.event.schedule == '30 00 * * 1'
         run: make download 
         env:
           PLAYLIST: main
       - name: Tuesday
-        if: github.event.schedule == '30 23 * * 2'
+        if: github.event.schedule == '30 00 * * 2'
         run: make download 
         env:
           PLAYLIST: radio
       - name: Wednesday
-        if: github.event.schedule == '30 23 * * 3'
+        if: github.event.schedule == '30 00 * * 3'
         run: make download 
         env:
           PLAYLIST: this-is
       - name: Thursday
-        if: github.event.schedule == '30 23 * * 4'
+        if: github.event.schedule == '30 00 * * 4'
         run: make download 
         env:
           PLAYLIST: wakeup
