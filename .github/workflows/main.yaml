@@ -6,6 +6,7 @@ on:
     - cron: '30 00 * * 2'
     - cron: '30 00 * * 3'
     - cron: '30 00 * * 4'
+    - cron: '30 00 * * 5'
   workflow_dispatch:
     inputs:
       playlist:
@@ -58,6 +59,11 @@ jobs:
         run: make download 
         env:
           PLAYLIST: wakeup
+      - name: Friday
+        if: github.event.schedule == '30 00 * * 5'
+        run: make download 
+        env:
+          PLAYLIST: ambiance
       - name: push
         run: make rclone-install && rclone purge s3:bucket && rclone sync output/ s3:bucket/
         env:
