@@ -64,6 +64,11 @@ jobs:
         run: make download 
         env:
           PLAYLIST: ambiance
+      - name: Saturday
+        if: github.event.schedule == '30 23 * * 5'
+        run: make download 
+        env:
+          PLAYLIST: saturday
       - name: push
         run: make rclone-install && rclone purge s3:bucket && rclone sync output/ s3:bucket/
         env:
