@@ -1,6 +1,7 @@
 SHELL := /bin/bash
 
 export PYTHONIOENCODING=utf-8
+export PYTHONUNBUFFERED=1
 
 dummy		    := $(shell touch .env)
 include ./.env
