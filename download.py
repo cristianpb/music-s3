@@ -32,10 +32,12 @@ print("Conf", config)
 
 
 def download(key, url):
-    cmd="docker run --rm -v ${PWD}/tmpmusic:/music  spotdl/spotify-downloader download "f" {url.strip()} --m3u {key}.m3u8"
-    process=subprocess.Popen(cmd, shell=True, stderr=subprocess.STDOUT, stdout=subprocess.PIPE)
-    output = process.stdout.read().decode('utf-8')
-    print("OUT: "+output)
+    cmd=f"docker run --rm -v {CWD}/tmpmusic:/music spotdl/spotify-downloader download {url.strip()} --m3u {key}.m3u8 --dont-filter-results"
+    p=subprocess.Popen(cmd.split(" "),
+                             stderr=subprocess.STDOUT,
+                             stdout=subprocess.PIPE)
+    for line in iter(p.stdout.readline, b''):
+        print(f">>> {line.rstrip().decode('utf-8')}")
 
     playlist_folder = key
     playlist_file = playlist_folder + ".m3u8"
