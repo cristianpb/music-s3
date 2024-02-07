@@ -13,8 +13,8 @@ decrypt:
 	./decrypt_secret.sh
 
 tmpmusic:
-	@echo "Creating tmp folder"
-	mkdir -p tmpmusic
+	@echo "Creating tmpmusic folder"
+	@mkdir -p tmpmusic
 
 download: tmpmusic
 	@if [ ! -z "${PLAYLIST}" ];then\
@@ -27,8 +27,8 @@ download: tmpmusic
 	fi;
 
 clean:
-	@echo "cleaning tmp music"
-	rm -rf tmpmusic output
+	@echo "Cleaning tmpmusic and output"
+	@rm -rf tmpmusic output
 
 rclone-install:
 	curl -s -O https://downloads.rclone.org/rclone-current-linux-amd64.deb;\
