@@ -34,3 +34,12 @@ rclone-install:
 	curl -s -O https://downloads.rclone.org/rclone-current-linux-amd64.deb;\
 		sudo dpkg -i rclone-current-linux-amd64.deb; \
 		rm rclone-*-linux-amd64*;
+
+rclone-purge:
+	@rclone purge s3:$$BUCKET
+
+rclone-push:
+	@rclone sync output/ s3:$$BUCKET/
+
+rclone-ls:
+	@rclone ls s3:$$BUCKET/
