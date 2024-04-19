@@ -35,6 +35,9 @@ rclone-install:
 		sudo dpkg -i rclone-current-linux-amd64.deb; \
 		rm rclone-*-linux-amd64*;
 
+rclone-delete:
+	@rclone delete --rmdirs s3:$$BUCKET/
+
 rclone-purge:
 	@rclone purge s3:$$BUCKET
 

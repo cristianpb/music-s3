@@ -71,7 +71,7 @@ jobs:
         env:
           PLAYLIST: saturday
       - name: push
-        run: make rclone-install rclone-purge rclone-push
+        run: make rclone-install rclone-delete rclone-push
         env:
           RCLONE_CONFIG_S3_ACCESS_KEY_ID: ${{ secrets.RCLONE_CONFIG_S3_ACCESS_KEY_ID }}
           RCLONE_CONFIG_S3_ENDPOINT: ${{ secrets.RCLONE_CONFIG_S3_ENDPOINT }}
