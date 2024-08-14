@@ -7,10 +7,13 @@ dummy		    := $(shell touch .env)
 include ./.env
 
 encrypt:
-	gpg --symmetric --quiet --batch --yes --cipher-algo AES256 --passphrase ${GPG_SECRET_PASSPHRASE} --quiet playlists.yaml
+	@echo "Encrypting"
+	@gpg --symmetric --quiet --batch --yes --cipher-algo AES256 --passphrase ${GPG_SECRET_PASSPHRASE} --quiet playlists.yaml
+	@gpg --symmetric --quiet --batch --yes --cipher-algo AES256 --passphrase ${GPG_SECRET_PASSPHRASE} --quiet cookies.txt
 
 decrypt:
-	./decrypt_secret.sh
+	@echo "Decrypting"
+	@./decrypt_secret.sh
 
 tmpmusic:
 	@echo "Creating tmpmusic folder"
