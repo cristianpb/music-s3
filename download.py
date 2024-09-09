@@ -28,11 +28,12 @@ if not os.path.exists(os.path.join(DEST_FOLDER, 'playlists')):
 if not os.path.exists(os.path.join(DEST_FOLDER, 'music')):
     os.makedirs(os.path.join(DEST_FOLDER, 'music'))
 
+cookies = open("cookies.txt").read()
 print("Conf", config)
 
 
 def download(key, url):
-    cmd=f"docker run --rm -v {CWD}/tmpmusic:/music spotdl/spotify-downloader download {url.strip()} --m3u {key}.m3u8 --dont-filter-results --cookie-file cookies.txt"
+    cmd=f"docker run --rm -v {CWD}/tmpmusic:/music spotdl/spotify-downloader download {url.strip()} --m3u {key}.m3u8 --dont-filter-results --proxy {cookies}"
     p=subprocess.Popen(cmd.split(" "),
                              stderr=subprocess.STDOUT,
                              stdout=subprocess.PIPE)
