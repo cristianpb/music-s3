@@ -22,11 +22,11 @@ tmpmusic:
 download: tmpmusic
 	@if [ ! -z "${PLAYLIST}" ];then\
 		echo "Download $(PLAYLIST) playlist";\
-		PYTHONIOENCODING=utf-8 python3 download.py -c $(PLAYLIST);\
+		PYTHONIOENCODING=utf-8 python3 download.py -o $(OUTPUT) -c $(PLAYLIST);\
 	fi;
 	@if [ ! -z "${URL_NAME}" -o ! -z "${URL}" ];then\
 		echo "Download $(URL_NAME) ($(URL))";\
-		PYTHONIOENCODING=utf-8 python3 download.py -u $(URL) -un $(URL_NAME);\
+		PYTHONIOENCODING=utf-8 python3 download.py -o $(OUTPUT) -u $(URL) -un $(URL_NAME);\
 	fi;
 
 clean:
